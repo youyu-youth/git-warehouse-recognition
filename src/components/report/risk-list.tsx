@@ -30,17 +30,15 @@ export function RiskList({ risks }: { risks: RiskItem[] }) {
   return (
     <section className="border border-line bg-surface">
       <header className="flex flex-col gap-3 border-b border-line px-4 py-3.5 sm:flex-row sm:items-center sm:justify-between sm:px-5">
-        <div className="flex items-start gap-3">
-          <span className="mt-0.5 font-mono text-[10px] tracking-[0.16em] text-muted">07</span>
-          <div>
+        <div>
+          <div className="flex items-baseline gap-2">
             <h2 className="text-sm font-semibold tracking-tight">主要风险清单</h2>
-            <p className="mt-0.5 text-[11px] text-muted">
-              按严重程度排序，建议先处理高危项
-            </p>
+            <span className="font-mono text-[10px] text-muted">共 {risks.length} 条</span>
           </div>
+          <p className="mt-0.5 text-[11px] text-muted">按严重程度排序，建议先处理高危项</p>
         </div>
 
-        <div className="flex flex-wrap gap-0.5 border border-line bg-paper p-0.5">
+        <div className="flex flex-wrap gap-1">
           {FILTERS.map((item) => (
             <button
               key={item.key}
@@ -48,14 +46,21 @@ export function RiskList({ risks }: { risks: RiskItem[] }) {
               onClick={() => setFilter(item.key)}
               aria-pressed={filter === item.key}
               className={cn(
-                "px-2.5 py-1 font-mono text-[10px] tracking-wide transition-colors",
+                "border px-2 py-1 font-mono text-[10px] transition-colors",
                 filter === item.key
-                  ? "bg-ink text-paper"
-                  : "text-muted hover:bg-surface hover:text-ink",
+                  ? "border-ink bg-ink text-paper"
+                  : "border-line bg-surface text-muted hover:border-line-strong hover:text-ink",
               )}
             >
               {item.label}
-              <span className="ml-1 opacity-70">{counts[item.key]}</span>
+              <span
+                className={cn(
+                  "ml-1",
+                  filter === item.key ? "text-paper/70" : "text-muted/70",
+                )}
+              >
+                {counts[item.key]}
+              </span>
             </button>
           ))}
         </div>
@@ -76,16 +81,16 @@ export function RiskList({ risks }: { risks: RiskItem[] }) {
                 <summary className="flex cursor-pointer list-none items-start gap-3 px-4 py-3 transition-colors hover:bg-paper/60 sm:px-5">
                   <SeverityPill severity={risk.severity} className="mt-0.5" />
                   <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                    <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
                       <span className="text-sm font-medium leading-5 text-ink">
                         {risk.title}
                       </span>
-                      <span className="font-mono text-[9px] uppercase tracking-[0.1em] text-muted">
+                      <span className="border border-line bg-paper px-1 py-px text-[9px] leading-4 text-muted">
                         {risk.category}
                       </span>
                     </div>
                     {risk.file && (
-                      <p className="mt-0.5 truncate font-mono text-[10px] text-muted">
+                      <p className="mt-1 truncate font-mono text-[10px] text-muted">
                         {risk.file}
                         {risk.line ? `:${risk.line}` : ""}
                       </p>

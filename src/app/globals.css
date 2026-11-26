@@ -1,25 +1,49 @@
 @import "tailwindcss";
 
 @theme {
-  --color-paper: #f4f1e9;
-  --color-surface: #fffdf8;
-  --color-ink: #1a1d18;
-  --color-muted: #62655b;
-  --color-line: #ded9cb;
-  --color-line-strong: #c9c3b3;
-  --color-accent: #0e6b56;
-  --color-accent-soft: #e6efe9;
-  --color-danger: #a63b2b;
-  --color-danger-soft: #f7e7e2;
-  --color-warn: #96621c;
-  --color-warn-soft: #f5ecdb;
-  --color-ok: #2c6a4c;
-  --color-ok-soft: #e7efe8;
+  --color-paper: #f1ede2;
+  --color-surface: #fdfbf4;
+  --color-ink: #181b16;
+  --color-muted: #5d6057;
+  --color-line: #ddd6c6;
+  --color-line-strong: #c6bfad;
+  --color-accent: #115c49;
+  --color-accent-soft: #e4ede7;
+  --color-danger: #a2372a;
+  --color-danger-soft: #f6e6e1;
+  --color-warn: #8f5c18;
+  --color-warn-soft: #f3ead7;
+  --color-ok: #2b6647;
+  --color-ok-soft: #e5eee6;
 
-  --font-sans: "Inter", "PingFang SC", "Microsoft YaHei", "Noto Sans SC",
-    ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: "JetBrains Mono", "SFMono-Regular", "Cascadia Code", Consolas,
+  --font-sans: "Inter", "Segoe UI Variable Text", "Segoe UI", "PingFang SC",
+    "Microsoft YaHei", "Noto Sans SC", ui-sans-serif, system-ui, -apple-system,
+    sans-serif;
+  --font-mono: "JetBrains Mono", "Cascadia Mono", "SFMono-Regular", Consolas,
     "Liberation Mono", monospace;
+
+  --animate-scan: scan 1.5s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  --animate-report-in: report-in 0.36s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@keyframes scan {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(400%);
+  }
+}
+
+@keyframes report-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 :root {
@@ -34,12 +58,13 @@ body {
   background-color: var(--color-paper);
   color: var(--color-ink);
   font-family: var(--font-sans);
+  font-variant-numeric: tabular-nums;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
 ::selection {
-  background-color: #cfe2d7;
+  background-color: #cfe2d6;
   color: var(--color-ink);
 }
 

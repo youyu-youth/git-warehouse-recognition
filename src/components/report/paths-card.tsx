@@ -27,7 +27,6 @@ export function PathsCard({ paths }: { paths: PathsCheck }) {
 
   return (
     <SectionCard
-      index="05"
       title="硬编码路径"
       subtitle={"C:\\ /Users/ / 绝对路径"}
       points={paths.points}
@@ -47,16 +46,25 @@ export function PathsCard({ paths }: { paths: PathsCheck }) {
             </div>
 
             <div className="grid grid-cols-2 gap-px border border-line bg-line">
-              {Object.entries(PATTERN_LABELS).map(([pattern, patternLabel]) => (
-                <div key={pattern} className="bg-surface px-3 py-2">
-                  <p className="font-mono text-[9px] uppercase tracking-[0.1em] text-muted">
-                    {patternLabel}
-                  </p>
-                  <p className="mt-0.5 font-mono text-sm text-ink">
-                    {paths.byPattern[pattern as keyof typeof paths.byPattern]}
-                  </p>
-                </div>
-              ))}
+              {Object.entries(PATTERN_LABELS).map(([pattern, patternLabel]) => {
+                const count = paths.byPattern[pattern as keyof typeof paths.byPattern];
+                return (
+                  <div key={pattern} className="bg-surface px-3 py-2">
+                    <p className="font-mono text-[9px] uppercase tracking-[0.1em] text-muted">
+                      {patternLabel}
+                    </p>
+                    <p
+                      className={
+                        count > 0
+                          ? "mt-0.5 font-mono text-sm text-ink"
+                          : "mt-0.5 font-mono text-sm text-muted/70"
+                      }
+                    >
+                      {count}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
 
             <ul className="divide-y divide-line/60 border-y border-line/60">

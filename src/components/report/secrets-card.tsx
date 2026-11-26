@@ -32,7 +32,6 @@ export function SecretsCard({ secrets }: { secrets: SecretsCheck }) {
 
   return (
     <SectionCard
-      index="06"
       title="敏感信息"
       subtitle="密钥 / 私钥 / .env 入库"
       points={secrets.points}
@@ -43,19 +42,37 @@ export function SecretsCard({ secrets }: { secrets: SecretsCheck }) {
         <div className="grid grid-cols-3 gap-px border border-line bg-line text-center">
           <div className="bg-surface px-2 py-2.5">
             <p className="font-mono text-[9px] uppercase tracking-[0.1em] text-muted">高危</p>
-            <p className="mt-0.5 font-mono text-lg leading-none text-danger">
+            <p
+              className={
+                secrets.bySeverity.high > 0
+                  ? "mt-0.5 font-mono text-lg leading-none text-danger"
+                  : "mt-0.5 font-mono text-lg leading-none text-muted/70"
+              }
+            >
               {secrets.bySeverity.high}
             </p>
           </div>
           <div className="bg-surface px-2 py-2.5">
             <p className="font-mono text-[9px] uppercase tracking-[0.1em] text-muted">中危</p>
-            <p className="mt-0.5 font-mono text-lg leading-none text-warn">
+            <p
+              className={
+                secrets.bySeverity.medium > 0
+                  ? "mt-0.5 font-mono text-lg leading-none text-warn"
+                  : "mt-0.5 font-mono text-lg leading-none text-muted/70"
+              }
+            >
               {secrets.bySeverity.medium}
             </p>
           </div>
           <div className="bg-surface px-2 py-2.5">
             <p className="font-mono text-[9px] uppercase tracking-[0.1em] text-muted">低危</p>
-            <p className="mt-0.5 font-mono text-lg leading-none text-ink">
+            <p
+              className={
+                secrets.bySeverity.low > 0
+                  ? "mt-0.5 font-mono text-lg leading-none text-ink"
+                  : "mt-0.5 font-mono text-lg leading-none text-muted/70"
+              }
+            >
               {secrets.bySeverity.low}
             </p>
           </div>

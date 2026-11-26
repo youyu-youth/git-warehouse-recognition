@@ -71,7 +71,6 @@ export function TonePill({ tone, label }: { tone: Tone; label?: string }) {
 }
 
 export function SectionCard({
-  index,
   title,
   subtitle,
   points,
@@ -80,7 +79,6 @@ export function SectionCard({
   children,
   className,
 }: {
-  index: string;
   title: string;
   subtitle?: string;
   points?: number;
@@ -90,27 +88,23 @@ export function SectionCard({
   className?: string;
 }) {
   return (
-    <section className={cn("border border-line bg-surface", className)}>
+    <section className={cn("flex flex-col border border-line bg-surface", className)}>
       <header className="flex items-start justify-between gap-3 border-b border-line px-4 py-3.5 sm:px-5">
-        <div className="flex min-w-0 items-start gap-3">
-          <span className="mt-0.5 font-mono text-[10px] tracking-[0.16em] text-muted">
-            {index}
-          </span>
-          <div className="min-w-0">
-            <h2 className="text-sm font-semibold tracking-tight">{title}</h2>
-            {subtitle && <p className="mt-0.5 text-[11px] leading-4 text-muted">{subtitle}</p>}
-          </div>
+        <div className="min-w-0">
+          <h2 className="text-sm font-semibold tracking-tight">{title}</h2>
+          {subtitle && <p className="mt-0.5 text-[11px] leading-4 text-muted">{subtitle}</p>}
         </div>
         <div className="flex shrink-0 items-center gap-2">
           {headRight}
           {points !== undefined && max !== undefined && (
             <span className="font-mono text-xs text-muted">
-              <span className="text-ink">{points}</span>/{max}
+              <span className="text-ink">{points}</span>
+              <span className="text-muted/70">/{max}</span>
             </span>
           )}
         </div>
       </header>
-      <div className="p-4 sm:p-5">{children}</div>
+      <div className="flex-1 p-4 sm:p-5">{children}</div>
     </section>
   );
 }
@@ -138,19 +132,19 @@ export function FactRow({
   value?: string;
 }) {
   return (
-    <div className="flex items-start justify-between gap-3 border-b border-line/60 py-1.5 text-xs last:border-b-0">
+    <div className="flex items-start justify-between gap-4 border-b border-line/60 py-2 text-xs last:border-b-0">
       <span className="flex items-center gap-1.5 text-muted">
         {state === "ok" ? (
           <Check className="h-3.5 w-3.5 shrink-0 text-ok" aria-hidden="true" />
         ) : state === "bad" ? (
           <X className="h-3.5 w-3.5 shrink-0 text-danger/80" aria-hidden="true" />
         ) : (
-          <Minus className="h-3.5 w-3.5 shrink-0 text-muted/60" aria-hidden="true" />
+          <Minus className="h-3.5 w-3.5 shrink-0 text-muted/50" aria-hidden="true" />
         )}
         {label}
       </span>
       {value && (
-        <span className="max-w-[62%] truncate font-mono text-[10px] text-ink" title={value}>
+        <span className="max-w-[60%] truncate font-mono text-[10px] text-ink" title={value}>
           {value}
         </span>
       )}
@@ -160,9 +154,9 @@ export function FactRow({
 
 export function EmptyLine({ children }: { children: ReactNode }) {
   return (
-    <div className="flex items-center gap-2 border border-dashed border-line px-3 py-3 text-xs text-muted">
-      <Check className="h-3.5 w-3.5 shrink-0 text-ok" aria-hidden="true" />
-      {children}
+    <div className="flex items-start gap-2 bg-paper/70 px-3.5 py-3 text-xs leading-5 text-muted">
+      <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-ok" aria-hidden="true" />
+      <span>{children}</span>
     </div>
   );
 }
@@ -181,7 +175,7 @@ export function NoteLine({
         tone === "bad"
           ? "border-danger/20 bg-danger-soft/40 text-danger"
           : tone === "ok"
-            ? "border-line bg-paper text-muted"
+            ? "border-line bg-paper/70 text-muted"
             : "border-warn/20 bg-warn-soft/40 text-warn",
       )}
     >

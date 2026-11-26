@@ -12,18 +12,21 @@ export function Report({ result }: { result: AnalysisResult }) {
   const aiScore = result.advice.source === "ai" ? result.advice.aiScore : undefined;
 
   return (
-    <div id="report" className="mt-6 space-y-4 scroll-mt-4 sm:space-y-5">
+    <div
+      id="report"
+      className="animate-report-in mt-6 space-y-4 scroll-mt-4 sm:space-y-5"
+    >
       <ReportHeader result={result} />
 
       <ScorePanel score={result.score} aiScore={aiScore} />
 
-      <div className="grid items-start gap-4 md:grid-cols-3 sm:gap-5">
+      <div className="grid gap-4 md:grid-cols-3 sm:gap-5">
         <ReadmeCard readme={result.checks.readme} />
         <DependencyCard deps={result.checks.deps} />
         <StartCard start={result.checks.start} />
       </div>
 
-      <div className="grid items-start gap-4 lg:grid-cols-2 sm:gap-5">
+      <div className="grid gap-4 lg:grid-cols-2 sm:gap-5">
         <WindowsCard windows={result.checks.windows} start={result.checks.start} />
         <PathsCard paths={result.checks.paths} />
       </div>
@@ -37,7 +40,7 @@ export function Report({ result }: { result: AnalysisResult }) {
           扫描 {result.meta.scannedFiles} / {result.meta.totalFiles} 个文件 · 单文件上限{" "}
           {result.meta.limits.maxFileSizeKb} KB · 总上限 {result.meta.limits.maxTotalSizeMb} MB
         </p>
-        <p className="font-mono uppercase tracking-[0.12em]">End of report · 仅供接入评估参考</p>
+        <p>报告结束，仅供接入评估参考。</p>
       </div>
     </div>
   );

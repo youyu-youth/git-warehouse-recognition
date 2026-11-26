@@ -40,7 +40,6 @@ function CheckChip({ ok, label }: { ok: boolean; label: string }) {
 export function ReadmeCard({ readme }: { readme: ReadmeCheck }) {
   return (
     <SectionCard
-      index="01"
       title="README 文档"
       subtitle="安装、启动、配置说明"
       points={readme.points}
@@ -88,7 +87,6 @@ export function DependencyCard({ deps }: { deps: DependencyCheck }) {
 
   return (
     <SectionCard
-      index="02"
       title="依赖与锁定"
       subtitle="依赖清单、锁文件、脚本"
       points={deps.points}
@@ -164,7 +162,6 @@ export function StartCard({ start }: { start: StartCheck }) {
 
   return (
     <SectionCard
-      index="03"
       title="启动脚本"
       subtitle={start.libraryProject ? "库 / SDK 项目的使用入口" : "一条命令能否跑起来"}
       points={start.points}
@@ -189,11 +186,11 @@ export function StartCard({ start }: { start: StartCheck }) {
       ) : (
         <div className="space-y-3">
           {start.command ? (
-            <div className="border border-line bg-paper px-3 py-2">
-              <p className="font-mono text-[9px] uppercase tracking-[0.14em] text-muted">
-                推荐启动
+            <div className="border border-line border-l-2 border-l-accent bg-paper px-3 py-2.5">
+              <p className="text-[10px] text-muted">推荐启动</p>
+              <p className="mt-1 break-all font-mono text-[13px] leading-5 text-ink">
+                {start.command}
               </p>
-              <p className="mt-1 break-all font-mono text-xs text-ink">{start.command}</p>
             </div>
           ) : (
             <FactRow state="bad" label="一键启动命令" value="未发现" />

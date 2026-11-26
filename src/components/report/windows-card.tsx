@@ -20,7 +20,6 @@ export function WindowsCard({
 
   return (
     <SectionCard
-      index="04"
       title="Windows 适配"
       subtitle=".bat / .cmd / .ps1 / .vbs"
       points={windows.points}
