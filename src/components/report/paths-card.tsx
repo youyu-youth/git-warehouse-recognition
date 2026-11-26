@@ -39,40 +39,43 @@ export function PathsCard({ paths }: { paths: PathsCheck }) {
         ) : (
           <>
             <div className="flex items-baseline gap-2">
-              <span className="font-mono text-2xl leading-none text-ink">{paths.total}</span>
-              <span className="text-xs text-muted">
-                处命中 · 涉及 {paths.filesAffected} 个文件
+              <span className="font-mono text-[24px] font-medium leading-none text-ink">
+                {paths.total}
+              </span>
+              <span className="text-[12px] text-muted">
+                处命中，涉及 {paths.filesAffected} 个文件
               </span>
             </div>
 
-            <div className="grid grid-cols-2 gap-px border border-line bg-line">
+            <div className="grid grid-cols-2 gap-x-4 border-t border-ink pt-2">
               {Object.entries(PATTERN_LABELS).map(([pattern, patternLabel]) => {
                 const count = paths.byPattern[pattern as keyof typeof paths.byPattern];
                 return (
-                  <div key={pattern} className="bg-surface px-3 py-2">
-                    <p className="font-mono text-[9px] uppercase tracking-[0.1em] text-muted">
-                      {patternLabel}
-                    </p>
-                    <p
+                  <div
+                    key={pattern}
+                    className="flex items-baseline justify-between gap-2 border-b border-line py-1.5"
+                  >
+                    <span className="text-[11px] leading-4 text-muted">{patternLabel}</span>
+                    <span
                       className={
                         count > 0
-                          ? "mt-0.5 font-mono text-sm text-ink"
-                          : "mt-0.5 font-mono text-sm text-muted/70"
+                          ? "font-mono text-[16px] leading-none text-ink"
+                          : "font-mono text-[16px] leading-none text-muted"
                       }
                     >
                       {count}
-                    </p>
+                    </span>
                   </div>
                 );
               })}
             </div>
 
-            <ul className="divide-y divide-line/60 border-y border-line/60">
+            <ul className="border-t border-line">
               {paths.findings.slice(0, 4).map((finding) => (
-                <li key={finding.id} className="py-2">
+                <li key={finding.id} className="border-b border-line/70 py-2 last:border-b-0">
                   <div className="flex items-center justify-between gap-2">
                     <span
-                      className="min-w-0 truncate font-mono text-[10px] text-ink"
+                      className="min-w-0 truncate font-mono text-[11px] text-ink"
                       title={`${finding.path}:${finding.line}`}
                     >
                       {finding.path}:{finding.line}
@@ -80,7 +83,7 @@ export function PathsCard({ paths }: { paths: PathsCheck }) {
                     <SeverityPill severity={finding.severity} />
                   </div>
                   <p
-                    className="mt-1 truncate font-mono text-[10px] text-muted"
+                    className="mt-1 truncate font-mono text-[11px] text-muted"
                     title={finding.snippet}
                   >
                     {finding.snippet}
@@ -89,7 +92,7 @@ export function PathsCard({ paths }: { paths: PathsCheck }) {
               ))}
             </ul>
             {paths.total > 4 && (
-              <p className="font-mono text-[10px] text-muted">
+              <p className="text-[11px] text-muted">
                 还有 {paths.total - 4} 处命中，完整清单见下方风险列表。
               </p>
             )}

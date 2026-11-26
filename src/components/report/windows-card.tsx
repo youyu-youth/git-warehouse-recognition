@@ -30,26 +30,31 @@ export function WindowsCard({
         {windows.total > 0 ? (
           <>
             <div className="flex items-baseline gap-2">
-              <span className="font-mono text-2xl leading-none text-ink">{windows.total}</span>
-              <span className="text-xs text-muted">个 Windows 专用脚本</span>
+              <span className="font-mono text-[24px] font-medium leading-none text-ink">
+                {windows.total}
+              </span>
+              <span className="text-[12px] text-muted">个 Windows 专用脚本</span>
             </div>
-            <ul className="divide-y divide-line/60 border-y border-line/60">
+            <ul className="border-y border-line">
               {windows.scripts.slice(0, 6).map((script) => (
-                <li key={script.path} className="flex items-center justify-between gap-3 py-1.5">
+                <li
+                  key={script.path}
+                  className="flex items-center justify-between gap-3 border-b border-line/70 py-1.5 last:border-b-0"
+                >
                   <span
-                    className="min-w-0 truncate font-mono text-[10px] text-ink"
+                    className="min-w-0 truncate font-mono text-[11px] text-ink"
                     title={script.path}
                   >
                     {script.path}
                   </span>
-                  <span className="shrink-0 border border-line bg-paper px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.08em] text-muted">
+                  <span className="shrink-0 rounded-[var(--radius-pill)] border border-line bg-paper-3 px-1.5 py-0.5 font-mono text-[11px] leading-4 text-ink-2">
                     {script.type}
                   </span>
                 </li>
               ))}
             </ul>
             {windows.total > 6 && (
-              <p className="font-mono text-[10px] text-muted">还有 {windows.total - 6} 个未列出</p>
+              <p className="text-[11px] text-muted">还有 {windows.total - 6} 个未列出</p>
             )}
           </>
         ) : (

@@ -33,44 +33,44 @@ export function SecretsCard({ secrets }: { secrets: SecretsCheck }) {
   return (
     <SectionCard
       title="敏感信息"
-      subtitle="密钥 / 私钥 / .env 入库"
+      subtitle="密钥、私钥、.env 入库"
       points={secrets.points}
       max={15}
       headRight={<TonePill tone={tone} label={label} />}
     >
       <div className="space-y-3">
-        <div className="grid grid-cols-3 gap-px border border-line bg-line text-center">
-          <div className="bg-surface px-2 py-2.5">
-            <p className="font-mono text-[9px] uppercase tracking-[0.1em] text-muted">高危</p>
+        <div className="grid grid-cols-3 border-t border-ink pt-2">
+          <div className="border-l border-line pl-3 first:border-l-0 first:pl-0">
+            <p className="text-[11px] leading-4 text-muted">高危</p>
             <p
               className={
                 secrets.bySeverity.high > 0
-                  ? "mt-0.5 font-mono text-lg leading-none text-danger"
-                  : "mt-0.5 font-mono text-lg leading-none text-muted/70"
+                  ? "mt-1 font-mono text-[20px] font-medium leading-none text-danger"
+                  : "mt-1 font-mono text-[20px] font-medium leading-none text-muted"
               }
             >
               {secrets.bySeverity.high}
             </p>
           </div>
-          <div className="bg-surface px-2 py-2.5">
-            <p className="font-mono text-[9px] uppercase tracking-[0.1em] text-muted">中危</p>
+          <div className="border-l border-line pl-3">
+            <p className="text-[11px] leading-4 text-muted">中危</p>
             <p
               className={
                 secrets.bySeverity.medium > 0
-                  ? "mt-0.5 font-mono text-lg leading-none text-warn"
-                  : "mt-0.5 font-mono text-lg leading-none text-muted/70"
+                  ? "mt-1 font-mono text-[20px] font-medium leading-none text-warn"
+                  : "mt-1 font-mono text-[20px] font-medium leading-none text-muted"
               }
             >
               {secrets.bySeverity.medium}
             </p>
           </div>
-          <div className="bg-surface px-2 py-2.5">
-            <p className="font-mono text-[9px] uppercase tracking-[0.1em] text-muted">低危</p>
+          <div className="border-l border-line pl-3">
+            <p className="text-[11px] leading-4 text-muted">低危</p>
             <p
               className={
                 secrets.bySeverity.low > 0
-                  ? "mt-0.5 font-mono text-lg leading-none text-ink"
-                  : "mt-0.5 font-mono text-lg leading-none text-muted/70"
+                  ? "mt-1 font-mono text-[20px] font-medium leading-none text-ink"
+                  : "mt-1 font-mono text-[20px] font-medium leading-none text-muted"
               }
             >
               {secrets.bySeverity.low}
@@ -93,26 +93,28 @@ export function SecretsCard({ secrets }: { secrets: SecretsCheck }) {
 
         {secrets.findings.length > 0 ? (
           <>
-            <ul className="divide-y divide-line/60 border-y border-line/60">
+            <ul className="border-t border-line">
               {secrets.findings.slice(0, 5).map((finding) => (
-                <li key={finding.id} className="py-2">
+                <li key={finding.id} className="border-b border-line/70 py-2 last:border-b-0">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="min-w-0 truncate text-[11px] font-medium text-ink">
+                    <span className="min-w-0 truncate text-[12px] font-medium text-ink">
                       {finding.rule}
                     </span>
                     <SeverityPill severity={finding.severity} />
                   </div>
                   <p
-                    className="mt-0.5 truncate font-mono text-[10px] text-muted"
+                    className="mt-0.5 truncate font-mono text-[11px] text-muted"
                     title={`${finding.path}:${finding.line}`}
                   >
                     {finding.path}
-                    {finding.line > 0 ? `:${finding.line}` : ""} · {finding.masked}
+                    {finding.line > 0 ? `:${finding.line}` : ""}
+                    {"， "}
+                    {finding.masked}
                   </p>
                 </li>
               ))}
             </ul>
-            <p className="text-[11px] leading-5 text-muted">
+            <p className="text-balance text-[11px] leading-5 text-muted">
               密钥内容已脱敏，只保留前缀和长度；完整值不会出现在页面或日志中。
               {secrets.total > 5 ? ` 另有 ${secrets.total - 5} 条见下方风险列表。` : ""}
             </p>

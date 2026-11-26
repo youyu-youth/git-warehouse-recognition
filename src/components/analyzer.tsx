@@ -28,39 +28,40 @@ function isAnalysisResult(value: unknown): value is AnalysisResult {
 
 function LoadingState({ url }: { url: string }) {
   return (
-    <div className="border border-line bg-surface" role="status">
+    <div className="overflow-hidden rounded-[var(--radius-card)] border border-line bg-surface" role="status">
       <div className="flex items-center gap-3 border-b border-line px-5 py-4">
-        <LoaderCircle className="h-4 w-4 animate-spin text-accent" aria-hidden="true" />
+        <LoaderCircle className="h-4 w-4 animate-spin text-ink" aria-hidden="true" />
         <div className="min-w-0 flex-1">
-          <p className="text-sm font-medium">正在分析仓库</p>
-          <p className="mt-0.5 truncate font-mono text-[11px] text-muted">{url}</p>
+          <p className="text-[14px] font-medium">正在分析仓库</p>
+          <p className="mt-0.5 truncate font-mono text-[12px] text-muted">{url}</p>
         </div>
-        <span className="hidden shrink-0 font-mono text-[10px] uppercase tracking-[0.12em] text-muted sm:inline">
-          5–20 秒
-        </span>
+        <span className="hidden shrink-0 text-[12px] text-muted sm:inline">5 到 20 秒</span>
       </div>
 
-      <div className="h-0.5 overflow-hidden bg-line/70" aria-hidden="true">
+      <div className="h-1 overflow-hidden bg-paper-3" aria-hidden="true">
         <span className="animate-scan block h-full w-1/4 bg-accent" />
       </div>
 
       <div className="space-y-6 p-5">
         <div className="space-y-2.5">
-          <div className="h-2.5 w-1/3 animate-pulse bg-line/70" />
-          <div className="h-2.5 w-2/3 animate-pulse bg-line/50" />
+          <div className="h-2.5 w-1/3 rounded-[2px] bg-paper-3" />
+          <div className="h-2.5 w-2/3 rounded-[2px] bg-paper-3" />
         </div>
         <div className="grid gap-3 sm:grid-cols-3">
           {[0, 1, 2].map((item) => (
-            <div key={item} className="h-24 animate-pulse border border-line/80 bg-paper/60" />
+            <div
+              key={item}
+              className="h-24 rounded-[var(--radius-pill)] border border-line bg-paper"
+            />
           ))}
         </div>
         <div className="space-y-2.5">
-          <div className="h-2.5 w-full animate-pulse bg-line/50" />
-          <div className="h-2.5 w-5/6 animate-pulse bg-line/40" />
+          <div className="h-2.5 w-full rounded-[2px] bg-paper-3" />
+          <div className="h-2.5 w-5/6 rounded-[2px] bg-paper-3" />
         </div>
       </div>
-      <p className="border-t border-line px-5 py-3 text-[11px] leading-5 text-muted">
-        正在拉取文件树、读取关键文件并生成评分。通常需要 5–20 秒，取决于仓库大小。
+      <p className="border-t border-line px-5 py-3 text-[12px] leading-5 text-muted">
+        正在拉取文件树、读取关键文件并生成评分。通常需要 5 到 20 秒，取决于仓库大小。
       </p>
     </div>
   );
@@ -74,24 +75,21 @@ function ErrorState({
   onFocusInput: () => void;
 }) {
   return (
-    <div className="border border-line border-l-2 border-l-danger bg-surface" role="alert">
+    <div
+      className="rounded-[var(--radius-card)] border border-danger/30 bg-danger-soft"
+      role="alert"
+    >
       <div className="flex gap-3 p-5">
         <CircleAlert className="mt-0.5 h-4 w-4 shrink-0 text-danger" aria-hidden="true" />
         <div className="min-w-0">
-          <p className="text-sm font-medium text-ink">{state.message}</p>
-          {state.hint && <p className="mt-1 text-xs leading-5 text-muted">{state.hint}</p>}
+          <p className="text-[14px] font-medium text-ink">{state.message}</p>
+          {state.hint && <p className="mt-1 text-[12px] leading-5 text-muted">{state.hint}</p>}
           <div className="mt-3 flex flex-wrap items-center gap-3">
-            <button
-              type="button"
-              onClick={onFocusInput}
-              className="border border-ink/25 px-3 py-1.5 text-xs font-medium transition-colors hover:border-ink/50 hover:bg-paper"
-            >
+            <button type="button" onClick={onFocusInput} className="key key-small">
               修改链接
             </button>
             {state.code && (
-              <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted">
-                {state.code}
-              </span>
+              <span className="font-mono text-[11px] text-muted">{state.code}</span>
             )}
           </div>
         </div>

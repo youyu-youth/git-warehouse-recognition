@@ -21,16 +21,16 @@ function CheckChip({ ok, label }: { ok: boolean; label: string }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1 border px-1.5 py-0.5 text-[10px] leading-4",
+        "inline-flex items-center gap-1 rounded-[var(--radius-pill)] border px-2 py-0.5 text-[11px] leading-4",
         ok
-          ? "border-line bg-paper text-ink"
-          : "border-danger/20 bg-danger-soft/40 text-danger",
+          ? "border-line bg-paper-3 text-ink-2"
+          : "border-danger/25 bg-danger-soft text-danger",
       )}
     >
       {ok ? (
         <Check className="h-3 w-3 text-ok" aria-hidden="true" />
       ) : (
-        <X className="h-3 w-3 text-danger/70" aria-hidden="true" />
+        <X className="h-3 w-3 text-danger" aria-hidden="true" />
       )}
       {label}
     </span>
@@ -52,7 +52,7 @@ export function ReadmeCard({ readme }: { readme: ReadmeCheck }) {
         <div className="space-y-3">
           <div className="flex flex-wrap items-center gap-1.5">
             <MonoTag>{readme.path}</MonoTag>
-            <span className="font-mono text-[10px] text-muted">
+            <span className="font-mono text-[11px] text-muted">
               {readme.chars.toLocaleString("zh-CN")} 字符
             </span>
           </div>
@@ -97,7 +97,7 @@ export function DependencyCard({ deps }: { deps: DependencyCheck }) {
         <div className="space-y-3">
           <div className="flex flex-wrap items-center gap-1.5">
             <MonoTag>{deps.mainManifest}</MonoTag>
-            <MonoTag>{deps.mainEcosystem}</MonoTag>
+            <span className="text-[11px] text-muted">{deps.mainEcosystem}</span>
           </div>
 
           <FactRow
@@ -105,6 +105,7 @@ export function DependencyCard({ deps }: { deps: DependencyCheck }) {
               deps.lockfileFound ? "ok" : deps.lockfileExpected ? "bad" : "na"
             }
             label="依赖锁文件"
+            mono={deps.lockfileFound}
             value={
               deps.lockfileFound
                 ? deps.lockfiles.find((lock) => lock.ecosystem === deps.mainEcosystem)?.path
@@ -126,12 +127,12 @@ export function DependencyCard({ deps }: { deps: DependencyCheck }) {
           )}
 
           {deps.manifests.length > 1 && (
-            <div className="flex flex-wrap gap-1.5 border-t border-line/60 pt-3">
+            <div className="flex flex-wrap gap-1.5 border-t border-line/70 pt-3">
               {deps.manifests.slice(0, 4).map((manifest) => (
                 <MonoTag key={manifest.path}>{manifest.path}</MonoTag>
               ))}
               {deps.manifests.length > 4 && (
-                <span className="font-mono text-[10px] text-muted">
+                <span className="font-mono text-[11px] text-muted">
                   +{deps.manifests.length - 4}
                 </span>
               )}
@@ -186,8 +187,8 @@ export function StartCard({ start }: { start: StartCheck }) {
       ) : (
         <div className="space-y-3">
           {start.command ? (
-            <div className="border border-line border-l-2 border-l-accent bg-paper px-3 py-2.5">
-              <p className="text-[10px] text-muted">推荐启动</p>
+            <div className="rounded-[var(--radius-pill)] border border-line bg-paper-3 px-3 py-2.5">
+              <p className="text-[11px] text-muted">推荐启动</p>
               <p className="mt-1 break-all font-mono text-[13px] leading-5 text-ink">
                 {start.command}
               </p>
